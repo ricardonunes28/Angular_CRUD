@@ -14,7 +14,7 @@ export class ProdutoComponent implements OnInit {
 
   prodName: string = '';
   produtos: Produto[] = [];
-  prodEdit: Produto[] = null;
+  prodEdit: Produto = null;
 
   private unsubscribe$: Subject<any> = new Subject();
 
@@ -29,7 +29,7 @@ export class ProdutoComponent implements OnInit {
   save() {
     if (this.prodEdit) {
       this.produtoService.update(
-        { name: this.prodName}
+        { name: this.prodName, _id: this.prodEdit._id}
       ).subscribe(
         (prod) => {
           this.notify('UPDATED')
@@ -62,6 +62,7 @@ export class ProdutoComponent implements OnInit {
 
   edit(prod: Produto) {
     this.prodName = prod.name;
+    this.prodEdit = prod;
   }
 
   delete(prod: Produto) {
